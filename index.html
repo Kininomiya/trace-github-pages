@@ -6,6 +6,33 @@
     <title>Unity WebGL Player | TRACE</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+
+    <!-- ===== Custom overrides: hide fullscreen button & loader logos ===== -->
+    <style>
+      /* Hide fullscreen control */
+      #unity-fullscreen-button,
+      .unity-fullscreen-button,
+      #fullscreenButton,
+      button.fullscreen {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      /* Hide loader/logo elements (only remove if your license permits it).
+         If you're on Unity Personal and required to show Unity splash, remove these rules. */
+      #unity-logo,
+      #unity-webgl-logo,
+      #unity-loading-bar .logo,
+      .unity-logo {
+        display: none !important;
+        visibility: hidden !important;
+      }
+
+      /* Keep mobile warning / build title visible as needed */
+      #unity-mobile-warning { /* leave as default or tweak if desired */ }
+    </style>
+    <!-- =================================================================== -->
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -74,9 +101,18 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
+
+          // Ensure fullscreen button does nothing (button is also hidden via CSS above).
+          // If you want fullscreen enabled in some other way, remove this block.
+          if (fullscreenButton) {
+            // Clear any existing onclick handler (prevents errors if removed)
+            fullscreenButton.onclick = null;
+            // Ensure the element is hidden (defensive)
+            fullscreenButton.style.display = "none";
+            fullscreenButton.style.visibility = "hidden";
+            fullscreenButton.style.pointerEvents = "none";
+          }
+
         }).catch((message) => {
           alert(message);
         });
