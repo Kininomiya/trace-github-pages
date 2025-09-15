@@ -1,2 +1,2 @@
 # trace-github-pages
-This is a puzzle game ported to Github Pages. Please read the Readme for more details and support the creator there.
+This is a puzzle game ported to Github Pages. Please support the original creator here: https://colorbomb.itch.io/trace?pubDate=20250620
